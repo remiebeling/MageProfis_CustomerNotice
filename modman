@@ -1,0 +1,4 @@
+src/app/code/local/MageProfis/CustomerNotice                                                app/code/local/MageProfis/CustomerNotice
+src/app/etc/modules/MageProfis_CustomerNotice.xml                                           app/etc/modules/MageProfis_CustomerNotice.xml
+src/app/design/frontend/base/default/layout/mageprofis-customernotice.xml                   app/design/frontend/base/default/layout/mageprofis-customernotice.xml
+src/app/design/frontend/base/default/template/customer/notice.phtml                         app/design/frontend/base/default/template/customer/notice.phtml
