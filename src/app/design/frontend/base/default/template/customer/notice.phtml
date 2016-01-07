@@ -2,26 +2,37 @@
 <?php $notices = $this->getCurrentViewNotices(); ?>
 <?php if (count($notices) > 0): ?>
     <?php $notice = $notices[0]; ?>
-        <?php Zend_Debug::dump($notice); ?>
-    <div class="modal fade" id="customerNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div class="modal-title"><?php echo $notice->getTitle(); ?></div>
-                </div>
-                <div class="modal-body std">
-                    <?php echo $this->getNoticeContent($notice); ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <?php $cookie = Mage::getSingleton('core/cookie'); ?>        
+    <?php if ($cookie->get($notice->getIdentifier()) != '1'): ?>
+        <div class="modal fade" id="customerNoticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="modal-title"><?php echo $notice->getTitle(); ?></div>
+                    </div>
+                    <div class="modal-body std">
+                        <?php echo $this->getNoticeContent($notice); ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 <?php endif; ?>
 <script type="text/javascript">
     jQuery(document).ready(function () {
         jQuery('#customerNoticeModal').modal();
+        jQuery('#customerNoticeModal').on('hidden.bs.modal', function (e) {
+            jQuery.ajax({
+                url: "<?php echo Mage::getUrl('customernotice/index/setcookie'); ?>",
+                context: document.body,
+                type: 'POST',
+                data: {identifier: "<?php echo $notice->getIdentifier(); ?>"}
+            });
+        });
+
     });
 </script>

@@ -55,6 +55,15 @@
                 </customernotice>
             </updates>
         </layout>
+        <routers>
+            <customernotice>
+                <use>standard</use>
+                <args>
+                    <module>MageProfis_CustomerNotice</module>
+                    <frontName>customernotice</frontName>
+                </args>
+            </customernotice>
+        </routers>
     </frontend>
     <default>
         <customernotice>
